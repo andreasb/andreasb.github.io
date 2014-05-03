@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Overslagsberegner</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+
+        <div>
+
+            <h1>Overslagsberegner</h1>
+
+            <form>
+
+                <label for="type">Type</label>
+                <select name="type">
+                  <option value="300">Type1 (300 kr)</option>
+                  <option value="400">Type2 (400 kr)</option>
+                  <option value="500">Type3 (500 kr)</option>
+                  <option value="600">Type4 (600 kr)</option>
+                </select>
+
+                <br>
+
+                <label for="meter">Antal meter</label>
+                <input type="text" name="meter">
+
+                <br>
+
+                <input type="submit" class="beregn" value="Beregn">
+
+            </form>
+
+            <p>Total pris: <span class="resultat"></span></p>
+        </div>
+
+        <script>
+        (function() {
+
+            var body = document.body;
+            var form = body.querySelector('form');
+            var resultat = body.querySelector('.resultat');
+
+            function addEvent(elem, event, fn) {
+                if (elem.addEventListener) {
+                    elem.addEventListener(event, fn, false);
+                } else {
+                    elem.attachEvent("on" + event, function() {
+                        return(fn.call(elem, window.event));
+                    });
+                }
+            }
+
+            function beregnPris() {
+                 var typePris = parseInt(form[0].value);
+                 var antalMeter = parseInt(form[1].value);
+                 var totalPris = typePris * antalMeter;
+                 resultat.innerHTML = totalPris + ' kr.';
+            };
+
+            addEvent(form.querySelector('.beregn'), 'click', function(e) {
+                e.preventDefault();
+                beregnPris();
+            });
+
+        })();
+        </script>
+    </body>
+</html>
